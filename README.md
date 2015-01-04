@@ -11,6 +11,7 @@
  * Xbox 360.
 
 * Very replaceable, "System.Random class". (Inherited from System.Random class, type-safe, usage-safe)
+* Include thread-safe version, named "SafeRandom class".
 
 * NuGet package ID: CenterCLR.XorRandomGenerator (https://www.nuget.org/packages/CenterCLR.XorRandomGenerator/)
 * GitHub: https://github.com/kekyo/CenterCLR.XorRandomGenerator.git
