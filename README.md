@@ -3,6 +3,9 @@
 ## What is this?
 
 * XorRandomGenerator is a random number generator by xor-shift calcuration for Portable Class Library.
+ * "xor-shift" random generate algorithm is simple xor and shift based calculation.
+ * More information, see http://en.wikipedia.org/wiki/Xorshift
+
 * Target platforms:
  * .NET Framework 4.0 or upper.
  * Silverlight 4 or upper.
