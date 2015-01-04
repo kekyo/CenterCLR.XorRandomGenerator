@@ -1,8 +1,10 @@
 # Random number generator by xor-shift calculation for Portable Class Library
 
+![Random number generator by xor-shift calculation for Portable Class Library](https://raw.githubusercontent.com/kekyo/CenterCLR.XorRandomGenerator/master/CenterCLR.XorRandomGenerator.100.png)
+
 ## What is this?
 
-* XorRandomGenerator is a random number generator by xor-shift calcuration for Portable Class Library.
+* CenterCLR.XorRandomGenerator is a random number generator by xor-shift calcuration for Portable Class Library.
  * "xor-shift" random generate algorithm is simple xor and shift based calculation.
  * More information, see http://en.wikipedia.org/wiki/Xorshift
 
