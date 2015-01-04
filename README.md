@@ -29,5 +29,6 @@
 * Enjoy!
 
 * History:
+ * 1.0.2.0: Fixed misconfigure package.
  * 1.0.1.0: Add tests, Add LINQ extensions, Add NextValues method.
  * 1.0.0.0: First release.
