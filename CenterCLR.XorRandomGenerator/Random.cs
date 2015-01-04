@@ -26,6 +26,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 using CenterCLR.XorRandomGenerator.Internals;
 
 namespace CenterCLR.XorRandomGenerator
@@ -75,6 +76,20 @@ namespace CenterCLR.XorRandomGenerator
 		/// Get random values.
 		/// </summary>
 		/// <param name="buffer">Random value fill target.</param>
+		public void NextValues(int[] buffer)
+		{
+			if (buffer == null)
+			{
+				throw new ArgumentNullException("buffer");
+			}
+
+			random_.NextValues(buffer);
+		}
+
+		/// <summary>
+		/// Get random values.
+		/// </summary>
+		/// <param name="buffer">Random value fill target.</param>
 		public override void NextBytes(byte[] buffer)
 		{
 			if (buffer == null)
@@ -82,10 +97,7 @@ namespace CenterCLR.XorRandomGenerator
 				throw new ArgumentNullException("buffer");
 			}
 
-			for (var i = 0; i < buffer.Length; i++)
-			{
-				buffer[i] = (byte)(random_.Next() % 256);
-			}
+			random_.NextBytes(buffer);
 		}
 
 		/// <summary>
@@ -95,6 +107,57 @@ namespace CenterCLR.XorRandomGenerator
 		protected override double Sample()
 		{
 			return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
+		}
+
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="count">Number of random values.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<int> Sequence(int count)
+		{
+			var r = new Random();
+
+			for (var index = 0; index < count; index++)
+			{
+				yield return r.Next();
+			}
+		}
+
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="count">Number of random arrays.</param>
+		/// <param name="bytes">Bytes on array.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<byte[]> BytesSequence(int count, int bytes)
+		{
+			var r = new Random();
+
+			for (var index = 0; index < count; index++)
+			{
+				var buffer = new byte[bytes];
+				r.NextBytes(buffer);
+				yield return buffer;
+			}
+		}
+
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="count">Number of random arrays.</param>
+		/// <param name="values">Values on array.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<int[]> ValuesSequence(int count, int values)
+		{
+			var r = new Random();
+
+			for (var index = 0; index < count; index++)
+			{
+				var buffer = new int[values];
+				r.NextValues(buffer);
+				yield return buffer;
+			}
 		}
 	}
 }

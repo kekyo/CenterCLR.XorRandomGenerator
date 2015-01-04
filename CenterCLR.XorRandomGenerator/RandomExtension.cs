@@ -26,74 +26,57 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 
-namespace CenterCLR.XorRandomGenerator.Internals
+namespace CenterCLR.XorRandomGenerator
 {
-	internal struct XorRandom
+	public static class RandomExtension
 	{
-		private const uint sv_ = 1812433253U;
-
-		private uint seed0_;
-		private uint seed1_;
-		private uint seed2_;
-		private uint seed3_;
-
-		public XorRandom(uint seed)
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="random">Random class instance</param>
+		/// <param name="count">Number of random values.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<int> Sequence(this Random random, int count)
 		{
-			seed0_ = sv_ * (seed ^ (seed >> 30)) + 1U;
-			seed1_ = sv_ * (seed0_ ^ (seed0_ >> 30)) + 1U;
-			seed2_ = sv_ * (seed1_ ^ (seed1_ >> 30)) + 1U;
-			seed3_ = sv_ * (seed2_ ^ (seed2_ >> 30)) + 1U;
-		}
-
-		public uint Next()
-		{
-			var t = seed0_ ^ (seed0_ << 11);
-
-			seed0_ = seed1_;
-			seed1_ = seed2_;
-			seed2_ = seed3_;
-			seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
-
-			return seed3_;
-		}
-
-		public void NextValues(int[] buffer)
-		{
-			for (var index = 0; index < buffer.Length; index++)
+			for (var index = 0; index < count; index++)
 			{
-				buffer[index] = (int)this.Next();
+				yield return random.Next();
 			}
 		}
 
-		public void NextBytes(byte[] buffer)
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="random">Random class instance</param>
+		/// <param name="count">Number of random arrays.</param>
+		/// <param name="bytes">Bytes on array.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<byte[]> BytesSequence(this Random random, int count, int bytes)
 		{
-			var index = 0;
-			var ceil = (buffer.Length / 4) * 4;
-			while (index < ceil)
+			for (var index = 0; index < count; index++)
 			{
-				var value32 = this.Next();
-
-				buffer[index++] = (byte)value32;
-				buffer[index++] = (byte)(value32 >> 8);
-				buffer[index++] = (byte)(value32 >> 16);
-				buffer[index++] = (byte)(value32 >> 24);
+				var buffer = new byte[bytes];
+				random.NextBytes(buffer);
+				yield return buffer;
 			}
+		}
 
-			if (index < buffer.Length)
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="random">Random class instance</param>
+		/// <param name="count">Number of random arrays.</param>
+		/// <param name="values">Values on array.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<int[]> ValuesSequence(this Random random, int count, int values)
+		{
+			for (var index = 0; index < count; index++)
 			{
-				var value32 = this.Next();
-				buffer[index++] = (byte)value32;
-
-				if (index < buffer.Length)
-				{
-					buffer[index++] = (byte)(value32 >> 8);
-
-					if (index < buffer.Length)
-					{
-						buffer[index++] = (byte)(value32 >> 16);
-					}
-				}
+				var buffer = new int[values];
+				random.NextValues(buffer);
+				yield return buffer;
 			}
 		}
 	}

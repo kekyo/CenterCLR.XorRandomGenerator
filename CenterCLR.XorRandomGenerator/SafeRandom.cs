@@ -87,10 +87,24 @@ namespace CenterCLR.XorRandomGenerator
 
 			lock (this)
 			{
-				for (var i = 0; i < buffer.Length; i++)
-				{
-					buffer[i] = (byte)(random_.Next() % 256);
-				}
+				random_.NextBytes(buffer);
+			}
+		}
+
+		/// <summary>
+		/// Get random values.
+		/// </summary>
+		/// <param name="buffer">Random value fill target.</param>
+		public void NextValues(int[] buffer)
+		{
+			if (buffer == null)
+			{
+				throw new ArgumentNullException("buffer");
+			}
+
+			lock (this)
+			{
+				random_.NextValues(buffer);
 			}
 		}
 

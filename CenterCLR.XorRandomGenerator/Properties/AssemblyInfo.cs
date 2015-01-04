@@ -26,6 +26,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 [assembly: AssemblyTitle("CenterCLR.XorRandomGenerator")]
 [assembly: AssemblyDescription("Random number generator by xor-shift calculation")]
+
+[assembly: InternalsVisibleTo("CenterCLR.XorRandomGeneratorTests")]
