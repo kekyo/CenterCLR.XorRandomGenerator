@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Internals\XorRandomTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RandomTests.cs" />
+    <Compile Include="XorRandomTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CenterCLR.XorRandomGenerator\CenterCLR.XorRandomGenerator.csproj">

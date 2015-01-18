@@ -26,82 +26,32 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Threading;
 
 namespace CenterCLR.XorRandomGenerator.Internals
 {
-	internal struct XorRandom
+	internal static class Seeder
 	{
-		private const uint sv_ = 1812433253U;
-		private const double uintMaxValue_ = (double)uint.MaxValue;
+		internal static int seedIndex_ = 0;
 
-		private uint seed0_;
-		private uint seed1_;
-		private uint seed2_;
-		private uint seed3_;
-
-		public XorRandom(uint seed)
+		public static uint GetSeed()
 		{
-			seed0_ = sv_ * (seed ^ (seed >> 30)) + 1U;
-			seed1_ = sv_ * (seed0_ ^ (seed0_ >> 30)) + 1U;
-			seed2_ = sv_ * (seed1_ ^ (seed1_ >> 30)) + 1U;
-			seed3_ = sv_ * (seed2_ ^ (seed2_ >> 30)) + 1U;
-		}
+			var tick = (uint)Environment.TickCount;
 
-		public uint Next()
-		{
-			var t = seed0_ ^ (seed0_ << 11);
-
-			seed0_ = seed1_;
-			seed1_ = seed2_;
-			seed2_ = seed3_;
-			seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
-
-			return seed3_;
-		}
-
-		public uint Next(int maxValue)
-		{
-			var dvalue = (double)this.Next();
-			return (uint)(Math.Ceiling(dvalue / uintMaxValue_) * maxValue);
-		}
-
-		public void NextValues(int[] buffer)
-		{
-			for (var index = 0; index < buffer.Length; index++)
+			uint useed;
+			do
 			{
-				buffer[index] = (int)this.Next();
+				var seedIndex = (uint)Interlocked.Increment(ref seedIndex_);
+				useed = tick + seedIndex;
 			}
+			while (useed == 0);
+
+			return useed;
 		}
 
-		public void NextBytes(byte[] buffer)
+		public static uint Normalize(int seed)
 		{
-			var index = 0;
-			var ceil = (buffer.Length / 4) * 4;
-			while (index < ceil)
-			{
-				var value32 = this.Next();
-
-				buffer[index++] = (byte)value32;
-				buffer[index++] = (byte)(value32 >> 8);
-				buffer[index++] = (byte)(value32 >> 16);
-				buffer[index++] = (byte)(value32 >> 24);
-			}
-
-			if (index < buffer.Length)
-			{
-				var value32 = this.Next();
-				buffer[index++] = (byte)value32;
-
-				if (index < buffer.Length)
-				{
-					buffer[index++] = (byte)(value32 >> 8);
-
-					if (index < buffer.Length)
-					{
-						buffer[index] = (byte)(value32 >> 16);
-					}
-				}
-			}
+			return (uint)((seed == 0) ? int.MaxValue : seed);
 		}
 	}
 }

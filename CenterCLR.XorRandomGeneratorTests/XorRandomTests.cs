@@ -35,7 +35,7 @@ namespace CenterCLR.XorRandomGenerator.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesTest()
 		{
-			var r = new Random();
+			var r = new XorRandom();
 
 			var valueCounts = new ushort[65536];
 			for (ulong count = 0; count < (65536UL * 30000); count++)
@@ -55,7 +55,7 @@ namespace CenterCLR.XorRandomGenerator.Tests
 		[TestMethod()]
 		public unsafe void GenerateRandomValuesByNextBytesTest()
 		{
-			var r = new Random();
+			var r = new XorRandom();
 
 			var buffer = new byte[2560 * 4];
 			var valueCounts = new ushort[65536];
@@ -84,7 +84,7 @@ namespace CenterCLR.XorRandomGenerator.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesByNextValuesTest()
 		{
-			var r = new Random();
+			var r = new XorRandom();
 
 			var buffer = new int[2560];
 			var valueCounts = new ushort[65536];

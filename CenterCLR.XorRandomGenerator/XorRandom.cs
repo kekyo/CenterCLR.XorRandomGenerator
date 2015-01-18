@@ -26,6 +26,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 
 namespace CenterCLR.XorRandomGenerator
 {
@@ -33,11 +34,11 @@ namespace CenterCLR.XorRandomGenerator
 	/// xor-shift based random generator.
 	/// </summary>
 	/// <remarks>
-	/// This class is thread-safed random number generator by xor-shift calculation.
+	/// This class is random number generator by xor-shift calculation.
 	/// http://en.wikipedia.org/wiki/Xorshift
-	/// If not require thread-safe, use Random class.
+	/// If require thread-safe, use SafeRandom class.
 	/// </remarks>
-	public sealed class SafeRandom : System.Random
+	public sealed class XorRandom : System.Random
 	{
 		private Internals.XorRandom random_;
 
@@ -47,7 +48,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// <remarks>
 		/// Seed value is internal tick count.
 		/// </remarks>
-		public SafeRandom()
+		public XorRandom()
 		{
 			random_ = new Internals.XorRandom(Internals.Seeder.GetSeed());
 		}
@@ -56,7 +57,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// Constructor.
 		/// </summary>
 		/// <param name="seed">Random seed value.</param>
-		public SafeRandom(int seed)
+		public XorRandom(int seed)
 		{
 			random_ = new Internals.XorRandom(Internals.Seeder.Normalize(seed));
 		}
@@ -67,10 +68,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// <returns>32bit random value.</returns>
 		public override int Next()
 		{
-			lock (this)
-			{
-				return (int)random_.Next();
-			}
+			return (int)random_.Next();
 		}
 
 		/// <summary>
@@ -90,23 +88,6 @@ namespace CenterCLR.XorRandomGenerator
 		/// Get random values.
 		/// </summary>
 		/// <param name="buffer">Random value fill target.</param>
-		public override void NextBytes(byte[] buffer)
-		{
-			if (buffer == null)
-			{
-				throw new ArgumentNullException("buffer");
-			}
-
-			lock (this)
-			{
-				random_.NextBytes(buffer);
-			}
-		}
-
-		/// <summary>
-		/// Get random values.
-		/// </summary>
-		/// <param name="buffer">Random value fill target.</param>
 		public void NextValues(int[] buffer)
 		{
 			if (buffer == null)
@@ -114,10 +95,21 @@ namespace CenterCLR.XorRandomGenerator
 				throw new ArgumentNullException("buffer");
 			}
 
-			lock (this)
+			random_.NextValues(buffer);
+		}
+
+		/// <summary>
+		/// Get random values.
+		/// </summary>
+		/// <param name="buffer">Random value fill target.</param>
+		public override void NextBytes(byte[] buffer)
+		{
+			if (buffer == null)
 			{
-				random_.NextValues(buffer);
+				throw new ArgumentNullException("buffer");
 			}
+
+			random_.NextBytes(buffer);
 		}
 
 		/// <summary>
@@ -126,9 +118,57 @@ namespace CenterCLR.XorRandomGenerator
 		/// <returns>Floating point value.</returns>
 		protected override double Sample()
 		{
-			lock (this)
+			return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
+		}
+
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="count">Number of random values.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<int> Sequence(int count)
+		{
+			var r = new XorRandom();
+
+			for (var index = 0; index < count; index++)
 			{
-				return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
+				yield return r.Next();
+			}
+		}
+
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="count">Number of random arrays.</param>
+		/// <param name="bytes">Bytes on array.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<byte[]> BytesSequence(int count, int bytes)
+		{
+			var r = new XorRandom();
+
+			for (var index = 0; index < count; index++)
+			{
+				var buffer = new byte[bytes];
+				r.NextBytes(buffer);
+				yield return buffer;
+			}
+		}
+
+		/// <summary>
+		/// Generate random sequence.
+		/// </summary>
+		/// <param name="count">Number of random arrays.</param>
+		/// <param name="values">Values on array.</param>
+		/// <returns>Random sequence.</returns>
+		public static IEnumerable<int[]> ValuesSequence(int count, int values)
+		{
+			var r = new XorRandom();
+
+			for (var index = 0; index < count; index++)
+			{
+				var buffer = new int[values];
+				r.NextValues(buffer);
+				yield return buffer;
 			}
 		}
 	}

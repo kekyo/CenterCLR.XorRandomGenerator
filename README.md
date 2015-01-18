@@ -17,7 +17,7 @@
 
 * Very replaceable, "System.Random class". (Inherited from System.Random class, type-safe, usage-safe)
 * Include thread-safe version, named "SafeRandom class".
-* Include LINQ extensions (ex: var enumerable = Random.Sequence(1000); )
+* Include LINQ extensions (ex: var enumerable = XorRandom.Sequence(1000); )
 
 * NuGet package ID: CenterCLR.XorRandomGenerator (https://www.nuget.org/packages/CenterCLR.XorRandomGenerator/)
 * GitHub: https://github.com/kekyo/CenterCLR.XorRandomGenerator.git
@@ -29,6 +29,10 @@
 * Enjoy!
 
 * History:
+ * 1.0.3.0:
+  * Random class obsoleted. Try XorRandom class instead.
+  * Seed generator improvement.
+  * Next(maxValue) implemented.
  * 1.0.2.0: Fixed misconfigure package.
  * 1.0.1.0: Add tests, Add LINQ extensions, Add NextValues method.
  * 1.0.0.0: First release.

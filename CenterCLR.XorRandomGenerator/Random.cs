@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using CenterCLR.XorRandomGenerator.Internals;
 
 namespace CenterCLR.XorRandomGenerator
 {
@@ -39,9 +38,10 @@ namespace CenterCLR.XorRandomGenerator
 	/// http://en.wikipedia.org/wiki/Xorshift
 	/// If require thread-safe, use SafeRandom class.
 	/// </remarks>
+	[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 	public sealed class Random : System.Random
 	{
-		private XorRandom random_;
+		private Internals.XorRandom random_;
 
 		/// <summary>
 		/// Constructor.
@@ -49,24 +49,27 @@ namespace CenterCLR.XorRandomGenerator
 		/// <remarks>
 		/// Seed value is internal tick count.
 		/// </remarks>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public Random()
 		{
-			random_ = new XorRandom((uint)Environment.TickCount);
+			random_ = new Internals.XorRandom(Internals.Seeder.GetSeed());
 		}
 
 		/// <summary>
 		/// Constructor.
 		/// </summary>
 		/// <param name="seed">Random seed value.</param>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public Random(int seed)
 		{
-			random_ = new XorRandom((uint)seed);
+			random_ = new Internals.XorRandom(Internals.Seeder.Normalize(seed));
 		}
 
 		/// <summary>
 		/// Get next random value.
 		/// </summary>
 		/// <returns>32bit random value.</returns>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public override int Next()
 		{
 			return (int)random_.Next();
@@ -76,6 +79,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// Get random values.
 		/// </summary>
 		/// <param name="buffer">Random value fill target.</param>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public void NextValues(int[] buffer)
 		{
 			if (buffer == null)
@@ -90,6 +94,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// Get random values.
 		/// </summary>
 		/// <param name="buffer">Random value fill target.</param>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public override void NextBytes(byte[] buffer)
 		{
 			if (buffer == null)
@@ -104,6 +109,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// Get next random value.
 		/// </summary>
 		/// <returns>Floating point value.</returns>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		protected override double Sample()
 		{
 			return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
@@ -114,9 +120,10 @@ namespace CenterCLR.XorRandomGenerator
 		/// </summary>
 		/// <param name="count">Number of random values.</param>
 		/// <returns>Random sequence.</returns>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public static IEnumerable<int> Sequence(int count)
 		{
-			var r = new Random();
+			var r = new XorRandom();
 
 			for (var index = 0; index < count; index++)
 			{
@@ -130,9 +137,10 @@ namespace CenterCLR.XorRandomGenerator
 		/// <param name="count">Number of random arrays.</param>
 		/// <param name="bytes">Bytes on array.</param>
 		/// <returns>Random sequence.</returns>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public static IEnumerable<byte[]> BytesSequence(int count, int bytes)
 		{
-			var r = new Random();
+			var r = new XorRandom();
 
 			for (var index = 0; index < count; index++)
 			{
@@ -148,9 +156,10 @@ namespace CenterCLR.XorRandomGenerator
 		/// <param name="count">Number of random arrays.</param>
 		/// <param name="values">Values on array.</param>
 		/// <returns>Random sequence.</returns>
+		[Obsolete("Random class is obsolete, try XorRandom class instead.")]
 		public static IEnumerable<int[]> ValuesSequence(int count, int values)
 		{
-			var r = new Random();
+			var r = new XorRandom();
 
 			for (var index = 0; index < count; index++)
 			{

@@ -37,7 +37,27 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesTest()
 		{
-			var r = new XorRandom((uint)Environment.TickCount);
+			var r = new XorRandom(Seeder.GetSeed());
+
+			var valueCounts = new ushort[65536];
+			for (ulong count = 0; count < (65536UL * 30000); count++)
+			{
+				var value32 = r.Next();
+				valueCounts[value32 & 0xffff]++;
+				valueCounts[value32 >> 16]++;
+			}
+
+			for (var index = 0; index < valueCounts.Length; index++)
+			{
+				var count = valueCounts[index];
+				Assert.IsTrue((count >= 58000) && (count <= 62000));
+			}
+		}
+
+		[TestMethod()]
+		public void GenerateRandomValuesWithMaxValueTest()
+		{
+			var r = new XorRandom(Seeder.GetSeed());
 
 			var valueCounts = new ushort[65536];
 			for (ulong count = 0; count < (65536UL * 30000); count++)
@@ -57,7 +77,7 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesByNextValuesTest()
 		{
-			var r = new XorRandom((uint)Environment.TickCount);
+			var r = new XorRandom(Seeder.GetSeed());
 
 			var buffer = new int[2560];
 			var valueCounts = new ushort[65536];
@@ -83,7 +103,7 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 		[TestMethod()]
 		public unsafe void GenerateRandomValuesByNextBytesTest()
 		{
-			var r = new XorRandom((uint)Environment.TickCount);
+			var r = new XorRandom(Seeder.GetSeed());
 
 			var buffer = new byte[2560 * 4];
 			var valueCounts = new ushort[65536];
@@ -112,7 +132,7 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesTimeTest()
 		{
-			var r = new XorRandom((uint)Environment.TickCount);
+			var r = new XorRandom(Seeder.GetSeed());
 
 			var sw = new Stopwatch();
 			sw.Start();
@@ -129,7 +149,7 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesByNextValuesTimeTest()
 		{
-			var r = new XorRandom((uint)Environment.TickCount);
+			var r = new XorRandom(Seeder.GetSeed());
 
 			var buffer = new int[2560];
 
@@ -148,7 +168,7 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 		[TestMethod()]
 		public void GenerateRandomValuesByNextBytesTimeTest()
 		{
-			var r = new XorRandom((uint)Environment.TickCount);
+			var r = new XorRandom(Seeder.GetSeed());
 
 			var buffer = new byte[2560 * 4];
 
