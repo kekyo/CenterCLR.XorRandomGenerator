@@ -1,20 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator", "CenterCLR.XorRandomGenerator\CenterCLR.XorRandomGenerator.csproj", "{C16DFE6B-F0C5-4A1D-BAF8-5481520EFD55}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.PCL1", "CenterCLR.XorRandomGenerator.PCL1\CenterCLR.XorRandomGenerator.PCL1.csproj", "{C16DFE6B-F0C5-4A1D-BAF8-5481520EFD55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.StoreApp", "CenterCLR.XorRandomGenerator.StoreApp\CenterCLR.XorRandomGenerator.StoreApp.csproj", "{9E5D14F0-31E2-4C5B-BDDA-422FAE4327F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.PCL344", "CenterCLR.XorRandomGenerator.PCL344\CenterCLR.XorRandomGenerator.PCL344.csproj", "{9E5D14F0-31E2-4C5B-BDDA-422FAE4327F3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{844760F4-061F-44C6-85A4-2672E831B3BB}"
 	ProjectSection(SolutionItems) = preProject
+		build-nupkg.bat = build-nupkg.bat
 		CenterCLR.XorRandomGenerator.100.png = CenterCLR.XorRandomGenerator.100.png
+		CenterCLR.XorRandomGenerator.nuspec = CenterCLR.XorRandomGenerator.nuspec
+		CenterCLR.XorRandomGenerator.snk = CenterCLR.XorRandomGenerator.snk
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{E09DD79A-4488-4AB9-8D3F-A7EEE78BF432}") = "CenterCLR.XorRandomGenerator.Package", "CenterCLR.XorRandomGenerator.Package\CenterCLR.XorRandomGenerator.Package.nuproj", "{1C2EF7AF-DD6C-4044-8987-E287E67E590A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGeneratorTests.PCL1", "CenterCLR.XorRandomGeneratorTests.PCL1\CenterCLR.XorRandomGeneratorTests.PCL1.csproj", "{D2692ADA-7CC6-45E2-B890-886805FA8414}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGeneratorTests", "CenterCLR.XorRandomGeneratorTests\CenterCLR.XorRandomGeneratorTests.csproj", "{D2692ADA-7CC6-45E2-B890-886805FA8414}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.NET2", "CenterCLR.XorRandomGenerator.NET2\CenterCLR.XorRandomGenerator.NET2.csproj", "{FF588526-9E2E-4328-8AB4-FD948A1530B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,14 +33,14 @@ Global
 		{9E5D14F0-31E2-4C5B-BDDA-422FAE4327F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E5D14F0-31E2-4C5B-BDDA-422FAE4327F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E5D14F0-31E2-4C5B-BDDA-422FAE4327F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C2EF7AF-DD6C-4044-8987-E287E67E590A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C2EF7AF-DD6C-4044-8987-E287E67E590A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C2EF7AF-DD6C-4044-8987-E287E67E590A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C2EF7AF-DD6C-4044-8987-E287E67E590A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D2692ADA-7CC6-45E2-B890-886805FA8414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D2692ADA-7CC6-45E2-B890-886805FA8414}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D2692ADA-7CC6-45E2-B890-886805FA8414}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D2692ADA-7CC6-45E2-B890-886805FA8414}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

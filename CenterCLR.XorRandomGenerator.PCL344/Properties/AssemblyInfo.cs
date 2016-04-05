@@ -27,13 +27,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyCompany("Kouji Matsui")]
-[assembly: AssemblyProduct("CenterCLR.XorRandomGenerator")]
-[assembly: AssemblyCopyright("Copyright (c) 2016 Kouji Matsui")]
-[assembly: AssemblyTrademark("CenterCLR")]
-
-#if DEBUG
-[assembly: AssemblyConfiguration("DEBUG")]
-#else
-[assembly: AssemblyConfiguration("RELEASE")]
-#endif
+[assembly: AssemblyTitle("CenterCLR.XorRandomGenerator (Profile 344)")]
+[assembly: AssemblyDescription("Random number generator by xor-shift calculation (Profile 344)")]

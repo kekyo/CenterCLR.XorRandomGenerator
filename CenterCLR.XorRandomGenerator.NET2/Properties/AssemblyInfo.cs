@@ -27,5 +27,5 @@
 
 using System.Reflection;
 
-[assembly: AssemblyTitle("CenterCLR.XorRandomGenerator (WinRT)")]
-[assembly: AssemblyDescription("Random number generator by xor-shift calculation (WinRT)")]
+[assembly: AssemblyTitle("CenterCLR.XorRandomGenerator (NET2)")]
+[assembly: AssemblyDescription("Random number generator by xor-shift calculation (NET2)")]

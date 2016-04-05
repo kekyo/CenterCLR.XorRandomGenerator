@@ -25,59 +25,21 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-using System;
-using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
-namespace CenterCLR.XorRandomGenerator
-{
-	public static class RandomExtension
-	{
-		/// <summary>
-		/// Generate random sequence.
-		/// </summary>
-		/// <param name="random">Random class instance</param>
-		/// <param name="count">Number of random values.</param>
-		/// <returns>Random sequence.</returns>
-		public static IEnumerable<int> Sequence(this Random random, int count)
-		{
-			for (var index = 0; index < count; index++)
-			{
-				yield return random.Next();
-			}
-		}
+[assembly: AssemblyTitle("CenterCLR.XorRandomGeneratorTests")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("CenterCLR.XorRandomGeneratorTests")]
+[assembly: AssemblyCopyright("Copyright (c) 2015 Kouji Matsui")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
-		/// <summary>
-		/// Generate random sequence.
-		/// </summary>
-		/// <param name="random">Random class instance</param>
-		/// <param name="count">Number of random arrays.</param>
-		/// <param name="bytes">Bytes on array.</param>
-		/// <returns>Random sequence.</returns>
-		public static IEnumerable<byte[]> BytesSequence(this Random random, int count, int bytes)
-		{
-			for (var index = 0; index < count; index++)
-			{
-				var buffer = new byte[bytes];
-				random.NextBytes(buffer);
-				yield return buffer;
-			}
-		}
+[assembly: ComVisible(false)]
 
-		/// <summary>
-		/// Generate random sequence.
-		/// </summary>
-		/// <param name="random">Random class instance</param>
-		/// <param name="count">Number of random arrays.</param>
-		/// <param name="values">Values on array.</param>
-		/// <returns>Random sequence.</returns>
-		public static IEnumerable<int[]> ValuesSequence(this Random random, int count, int values)
-		{
-			for (var index = 0; index < count; index++)
-			{
-				var buffer = new int[values];
-				random.NextValues(buffer);
-				yield return buffer;
-			}
-		}
-	}
-}
+[assembly: Guid("b634c533-4341-439c-9c6a-315ebbd9f6d5")]
+
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

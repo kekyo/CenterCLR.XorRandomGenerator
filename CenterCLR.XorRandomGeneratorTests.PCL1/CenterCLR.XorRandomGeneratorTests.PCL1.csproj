@@ -36,6 +36,12 @@
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\CenterCLR.XorRandomGenerator.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
   </ItemGroup>
@@ -57,10 +63,15 @@
     <Compile Include="XorRandomTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CenterCLR.XorRandomGenerator\CenterCLR.XorRandomGenerator.csproj">
+    <ProjectReference Include="..\CenterCLR.XorRandomGenerator.PCL1\CenterCLR.XorRandomGenerator.PCL1.csproj">
       <Project>{C16DFE6B-F0C5-4A1D-BAF8-5481520EFD55}</Project>
       <Name>CenterCLR.XorRandomGenerator</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\CenterCLR.XorRandomGenerator.snk">
+      <Link>Properties\CenterCLR.XorRandomGenerator.snk</Link>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

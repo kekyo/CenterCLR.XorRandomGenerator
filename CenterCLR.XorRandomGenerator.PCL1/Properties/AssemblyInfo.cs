@@ -28,7 +28,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyTitle("CenterCLR.XorRandomGenerator")]
-[assembly: AssemblyDescription("Random number generator by xor-shift calculation")]
+[assembly: AssemblyTitle("CenterCLR.XorRandomGenerator (Profile 1)")]
+[assembly: AssemblyDescription("Random number generator by xor-shift calculation (Profile 1)")]
 
-[assembly: InternalsVisibleTo("CenterCLR.XorRandomGeneratorTests")]
+[assembly: InternalsVisibleTo("CenterCLR.XorRandomGeneratorTests, PublicKey=0024000004800000940000000602000000240000525341310004000001000100839b30dd486aab39da1f019bb624ccbf76c74720d4fe4e92d3311587205f237a3e92b2ae6ca1ced673fef4ee9cca257908a0b7e58002b856f77f189fa464b0ed2dc37309a2441486650824c0d7702f88ee0a113171ad92d3881519a29dd669d33d7c0998a0f12d427263b1f28efd9de7cc47db55859d02c255393470eb34009e")]
