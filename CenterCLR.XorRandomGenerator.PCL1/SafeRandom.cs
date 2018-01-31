@@ -39,7 +39,7 @@ namespace CenterCLR.XorRandomGenerator
 	/// </remarks>
 	public sealed class SafeRandom : System.Random
 	{
-		private Internals.XorRandom random_;
+		private Internals.InternalXorRandom random_;
 
 		/// <summary>
 		/// Constructor.
@@ -49,7 +49,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// </remarks>
 		public SafeRandom()
 		{
-			random_ = new Internals.XorRandom(Internals.Seeder.GetSeed());
+			random_ = new Internals.InternalXorRandom(Internals.Seeder.GetSeed());
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// <param name="seed">Random seed value.</param>
 		public SafeRandom(int seed)
 		{
-			random_ = new Internals.XorRandom(Internals.Seeder.Normalize(seed));
+			random_ = new Internals.InternalXorRandom(Internals.Seeder.Normalize(seed));
 		}
 
 		/// <summary>
@@ -67,10 +67,10 @@ namespace CenterCLR.XorRandomGenerator
 		/// <returns>32bit random value.</returns>
 		public override int Next()
 		{
-			lock (this)
-			{
-				return (int)random_.Next();
-			}
+		    lock (this)
+		    {
+		        return (int)(random_.Next() & 0x7fffffff);
+		    }
 		}
 
 		/// <summary>

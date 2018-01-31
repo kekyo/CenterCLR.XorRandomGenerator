@@ -14,6 +14,8 @@
     <TargetFrameworkProfile>Profile344</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,8 +51,8 @@
     <Compile Include="..\CenterCLR.XorRandomGenerator.PCL1\Internals\Seeder.cs">
       <Link>Internals\Seeder.cs</Link>
     </Compile>
-    <Compile Include="..\CenterCLR.XorRandomGenerator.PCL1\Internals\XorRandom.cs">
-      <Link>Internals\XorRandom.cs</Link>
+    <Compile Include="..\CenterCLR.XorRandomGenerator.PCL1\Internals\InternalXorRandom.cs">
+      <Link>Internals\InternalXorRandom.cs</Link>
     </Compile>
     <Compile Include="..\CenterCLR.XorRandomGenerator.PCL1\SafeRandom.cs">
       <Link>SafeRandom.cs</Link>
@@ -71,6 +73,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\CenterCLR.RelaxVersioner.0.7.18\build\CenterCLR.RelaxVersioner.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\CenterCLR.RelaxVersioner.0.7.18\build\CenterCLR.RelaxVersioner.targets'))" />
   </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

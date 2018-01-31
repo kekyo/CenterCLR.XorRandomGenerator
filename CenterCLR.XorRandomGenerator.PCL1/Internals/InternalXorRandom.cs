@@ -29,17 +29,17 @@ using System;
 
 namespace CenterCLR.XorRandomGenerator.Internals
 {
-	internal struct XorRandom
+	internal struct InternalXorRandom
 	{
 		private const uint sv_ = 1812433253U;
-		private const double uintMaxValue_ = (double)uint.MaxValue;
+	    private const double uintCount_ = ((double)uint.MaxValue) + 1;
 
 		private uint seed0_;
 		private uint seed1_;
 		private uint seed2_;
 		private uint seed3_;
 
-		public XorRandom(uint seed)
+		public InternalXorRandom(uint seed)
 		{
 			seed0_ = sv_ * (seed ^ (seed >> 30)) + 1U;
 			seed1_ = sv_ * (seed0_ ^ (seed0_ >> 30)) + 1U;
@@ -47,7 +47,19 @@ namespace CenterCLR.XorRandomGenerator.Internals
 			seed3_ = sv_ * (seed2_ ^ (seed2_ >> 30)) + 1U;
 		}
 
-		public uint Next()
+        public uint NextRawValue()
+	    {
+	        var t = seed0_ ^ (seed0_ << 11);
+
+	        seed0_ = seed1_;
+	        seed1_ = seed2_;
+	        seed2_ = seed3_;
+	        seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
+
+	        return seed3_;
+	    }
+
+		public int Next()
 		{
 			var t = seed0_ ^ (seed0_ << 11);
 
@@ -56,20 +68,40 @@ namespace CenterCLR.XorRandomGenerator.Internals
 			seed2_ = seed3_;
 			seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
 
-			return seed3_;
+			return (int)(seed3_ & 0x7fffffff);
 		}
 
-		public uint Next(int maxValue)
+	    public double Sample()
+	    {
+	        var t = seed0_ ^ (seed0_ << 11);
+
+	        seed0_ = seed1_;
+	        seed1_ = seed2_;
+	        seed2_ = seed3_;
+	        seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
+
+            return seed3_ / uintCount_;
+	    }
+
+		public int Next(int maxValue)
 		{
-			var dvalue = (double)this.Next();
-			return (uint)(Math.Ceiling(dvalue / uintMaxValue_) * maxValue);
+            var dvalue = (double)this.NextRawValue();
+		    var m = dvalue * (maxValue + 1) / uintCount_;
+            return (int)m;
 		}
+
+	    public int Next(int minValue, int maxValue)
+	    {
+	        var dvalue = (double)this.NextRawValue();
+            var m = dvalue * (maxValue - minValue + 1) / uintCount_;
+            return ((int)m) + minValue;
+	    }
 
 		public void NextValues(int[] buffer)
 		{
 			for (var index = 0; index < buffer.Length; index++)
 			{
-				buffer[index] = (int)this.Next();
+				buffer[index] = this.Next();
 			}
 		}
 
@@ -79,7 +111,7 @@ namespace CenterCLR.XorRandomGenerator.Internals
 			var ceil = (buffer.Length / 4) * 4;
 			while (index < ceil)
 			{
-				var value32 = this.Next();
+                var value32 = this.NextRawValue();
 
 				buffer[index++] = (byte)value32;
 				buffer[index++] = (byte)(value32 >> 8);
@@ -89,7 +121,7 @@ namespace CenterCLR.XorRandomGenerator.Internals
 
 			if (index < buffer.Length)
 			{
-				var value32 = this.Next();
+                var value32 = this.NextRawValue();
 				buffer[index++] = (byte)value32;
 
 				if (index < buffer.Length)

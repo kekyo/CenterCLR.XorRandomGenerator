@@ -58,14 +58,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Internals\XorRandomTests.cs" />
+    <Compile Include="Internals\InternalXorRandomTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XorRandomTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CenterCLR.XorRandomGenerator.PCL1\CenterCLR.XorRandomGenerator.PCL1.csproj">
       <Project>{C16DFE6B-F0C5-4A1D-BAF8-5481520EFD55}</Project>
-      <Name>CenterCLR.XorRandomGenerator</Name>
+      <Name>CenterCLR.XorRandomGenerator.PCL1</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

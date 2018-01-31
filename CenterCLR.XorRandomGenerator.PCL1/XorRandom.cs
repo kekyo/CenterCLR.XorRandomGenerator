@@ -40,7 +40,7 @@ namespace CenterCLR.XorRandomGenerator
 	/// </remarks>
 	public sealed class XorRandom : System.Random
 	{
-		private Internals.XorRandom random_;
+		private Internals.InternalXorRandom random_;
 
 		/// <summary>
 		/// Constructor.
@@ -50,7 +50,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// </remarks>
 		public XorRandom()
 		{
-			random_ = new Internals.XorRandom(Internals.Seeder.GetSeed());
+			random_ = new Internals.InternalXorRandom(Internals.Seeder.GetSeed());
 		}
 
 		/// <summary>
@@ -59,7 +59,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// <param name="seed">Random seed value.</param>
 		public XorRandom(int seed)
 		{
-			random_ = new Internals.XorRandom(Internals.Seeder.Normalize(seed));
+			random_ = new Internals.InternalXorRandom(Internals.Seeder.Normalize(seed));
 		}
 
 		/// <summary>
@@ -68,7 +68,7 @@ namespace CenterCLR.XorRandomGenerator
 		/// <returns>32bit random value.</returns>
 		public override int Next()
 		{
-			return (int)random_.Next();
+			return random_.Next();
 		}
 
 		/// <summary>
@@ -78,13 +78,21 @@ namespace CenterCLR.XorRandomGenerator
 		/// <returns>32bit random value.</returns>
 		public override int Next(int maxValue)
 		{
-			lock (this)
-			{
-				return (int)random_.Next(maxValue);
-			}
+			return random_.Next(maxValue);
 		}
 
-		/// <summary>
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <param name="minValue">Minimum value.</param>
+        /// <param name="maxValue">Maximum value.</param>
+        /// <returns>32bit random value.</returns>
+        public override int Next(int minValue, int maxValue)
+	    {
+            return random_.Next(minValue, maxValue);
+	    }
+
+	    /// <summary>
 		/// Get random values.
 		/// </summary>
 		/// <param name="buffer">Random value fill target.</param>
@@ -118,8 +126,13 @@ namespace CenterCLR.XorRandomGenerator
 		/// <returns>Floating point value.</returns>
 		protected override double Sample()
 		{
-			return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
+            return random_.Sample();
 		}
+
+	    internal double InternalSample()
+	    {
+	        return random_.Sample();
+	    }
 
 		/// <summary>
 		/// Generate random sequence.
