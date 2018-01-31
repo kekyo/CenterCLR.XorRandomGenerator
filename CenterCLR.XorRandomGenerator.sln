@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.PCL1", "CenterCLR.XorRandomGenerator.PCL1\CenterCLR.XorRandomGenerator.PCL1.csproj", "{C16DFE6B-F0C5-4A1D-BAF8-5481520EFD55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.PCL344", "CenterCLR.XorRandomGenerator.PCL344\CenterCLR.XorRandomGenerator.PCL344.csproj", "{9E5D14F0-31E2-4C5B-BDDA-422FAE4327F3}"
@@ -26,6 +28,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{7E82FB
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.NET4", "CenterCLR.XorRandomGenerator.NET4\CenterCLR.XorRandomGenerator.NET4.csproj", "{EF51E511-6FF0-4D23-8C58-16EDD26777CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.PCL259", "CenterCLR.XorRandomGenerator.PCL259\CenterCLR.XorRandomGenerator.PCL259.csproj", "{8C48FA2F-B820-462F-B362-3DF7D0CD98B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CenterCLR.XorRandomGenerator.NETStandard", "CenterCLR.XorRandomGenerator.NETStandard\CenterCLR.XorRandomGenerator.NETStandard.csproj", "{5FE4DC3B-696F-449E-934C-6F55E3FF0221}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,8 +56,23 @@ Global
 		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF588526-9E2E-4328-8AB4-FD948A1530B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF51E511-6FF0-4D23-8C58-16EDD26777CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF51E511-6FF0-4D23-8C58-16EDD26777CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF51E511-6FF0-4D23-8C58-16EDD26777CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF51E511-6FF0-4D23-8C58-16EDD26777CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C48FA2F-B820-462F-B362-3DF7D0CD98B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C48FA2F-B820-462F-B362-3DF7D0CD98B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C48FA2F-B820-462F-B362-3DF7D0CD98B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C48FA2F-B820-462F-B362-3DF7D0CD98B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FE4DC3B-696F-449E-934C-6F55E3FF0221}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FE4DC3B-696F-449E-934C-6F55E3FF0221}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FE4DC3B-696F-449E-934C-6F55E3FF0221}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FE4DC3B-696F-449E-934C-6F55E3FF0221}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58CF2DFF-0439-41C4-844D-94BC0F22968D}
 	EndGlobalSection
 EndGlobal

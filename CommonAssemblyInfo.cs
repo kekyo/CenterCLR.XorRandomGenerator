@@ -29,7 +29,7 @@ using System.Reflection;
 
 [assembly: AssemblyCompany("Kouji Matsui")]
 [assembly: AssemblyProduct("CenterCLR.XorRandomGenerator")]
-[assembly: AssemblyCopyright("Copyright (c) 2016 Kouji Matsui")]
+[assembly: AssemblyCopyright("Copyright (c) 2018 Kouji Matsui")]
 [assembly: AssemblyTrademark("CenterCLR")]
 
 #if DEBUG

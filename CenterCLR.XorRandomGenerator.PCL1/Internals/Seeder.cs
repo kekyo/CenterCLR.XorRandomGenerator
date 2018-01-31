@@ -30,28 +30,28 @@ using System.Threading;
 
 namespace CenterCLR.XorRandomGenerator.Internals
 {
-	internal static class Seeder
-	{
-		internal static int seedIndex_ = 0;
+    internal static class Seeder
+    {
+        internal static int seedIndex_ = 0;
 
-		public static uint GetSeed()
-		{
-			var tick = (uint)Environment.TickCount;
+        public static uint GetSeed()
+        {
+            var tick = (uint)Environment.TickCount;
 
-			uint useed;
-			do
-			{
-				var seedIndex = (uint)Interlocked.Increment(ref seedIndex_);
-				useed = tick + seedIndex;
-			}
-			while (useed == 0);
+            uint useed;
+            do
+            {
+                var seedIndex = (uint)Interlocked.Increment(ref seedIndex_);
+                useed = tick + seedIndex;
+            }
+            while (useed == 0);
 
-			return useed;
-		}
+            return useed;
+        }
 
-		public static uint Normalize(int seed)
-		{
-			return (uint)((seed == 0) ? int.MaxValue : seed);
-		}
-	}
+        public static uint Normalize(int seed)
+        {
+            return (uint)((seed == 0) ? int.MaxValue : seed);
+        }
+    }
 }

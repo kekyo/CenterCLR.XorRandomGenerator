@@ -29,111 +29,111 @@ using System;
 
 namespace CenterCLR.XorRandomGenerator.Internals
 {
-	internal struct InternalXorRandom
-	{
-		private const uint sv_ = 1812433253U;
-	    private const double uintCount_ = ((double)uint.MaxValue) + 1;
+    internal struct InternalXorRandom
+    {
+        private const uint sv_ = 1812433253U;
+        private const double uintCount_ = ((double)uint.MaxValue) + 1;
 
-		private uint seed0_;
-		private uint seed1_;
-		private uint seed2_;
-		private uint seed3_;
+        private uint seed0_;
+        private uint seed1_;
+        private uint seed2_;
+        private uint seed3_;
 
-		public InternalXorRandom(uint seed)
-		{
-			seed0_ = sv_ * (seed ^ (seed >> 30)) + 1U;
-			seed1_ = sv_ * (seed0_ ^ (seed0_ >> 30)) + 1U;
-			seed2_ = sv_ * (seed1_ ^ (seed1_ >> 30)) + 1U;
-			seed3_ = sv_ * (seed2_ ^ (seed2_ >> 30)) + 1U;
-		}
+        public InternalXorRandom(uint seed)
+        {
+            seed0_ = sv_ * (seed ^ (seed >> 30)) + 1U;
+            seed1_ = sv_ * (seed0_ ^ (seed0_ >> 30)) + 1U;
+            seed2_ = sv_ * (seed1_ ^ (seed1_ >> 30)) + 1U;
+            seed3_ = sv_ * (seed2_ ^ (seed2_ >> 30)) + 1U;
+        }
 
         public uint NextRawValue()
-	    {
-	        var t = seed0_ ^ (seed0_ << 11);
+        {
+            var t = seed0_ ^ (seed0_ << 11);
 
-	        seed0_ = seed1_;
-	        seed1_ = seed2_;
-	        seed2_ = seed3_;
-	        seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
+            seed0_ = seed1_;
+            seed1_ = seed2_;
+            seed2_ = seed3_;
+            seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
 
-	        return seed3_;
-	    }
+            return seed3_;
+        }
 
-		public int Next()
-		{
-			var t = seed0_ ^ (seed0_ << 11);
+        public int Next()
+        {
+            var t = seed0_ ^ (seed0_ << 11);
 
-			seed0_ = seed1_;
-			seed1_ = seed2_;
-			seed2_ = seed3_;
-			seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
+            seed0_ = seed1_;
+            seed1_ = seed2_;
+            seed2_ = seed3_;
+            seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
 
-			return (int)(seed3_ & 0x7fffffff);
-		}
+            return (int)(seed3_ & 0x7fffffff);
+        }
 
-	    public double Sample()
-	    {
-	        var t = seed0_ ^ (seed0_ << 11);
+        public double Sample()
+        {
+            var t = seed0_ ^ (seed0_ << 11);
 
-	        seed0_ = seed1_;
-	        seed1_ = seed2_;
-	        seed2_ = seed3_;
-	        seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
+            seed0_ = seed1_;
+            seed1_ = seed2_;
+            seed2_ = seed3_;
+            seed3_ = (seed3_ ^ (seed3_ >> 19)) ^ (t ^ (t >> 8));
 
             return seed3_ / uintCount_;
-	    }
+        }
 
-		public int Next(int maxValue)
-		{
+        public int Next(int maxValue)
+        {
             var dvalue = (double)this.NextRawValue();
-		    var m = dvalue * (maxValue + 1) / uintCount_;
+            var m = dvalue * (maxValue + 1) / uintCount_;
             return (int)m;
-		}
+        }
 
-	    public int Next(int minValue, int maxValue)
-	    {
-	        var dvalue = (double)this.NextRawValue();
+        public int Next(int minValue, int maxValue)
+        {
+            var dvalue = (double)this.NextRawValue();
             var m = dvalue * (maxValue - minValue + 1) / uintCount_;
             return ((int)m) + minValue;
-	    }
+        }
 
-		public void NextValues(int[] buffer)
-		{
-			for (var index = 0; index < buffer.Length; index++)
-			{
-				buffer[index] = this.Next();
-			}
-		}
+        public void NextValues(int[] buffer)
+        {
+            for (var index = 0; index < buffer.Length; index++)
+            {
+                buffer[index] = this.Next();
+            }
+        }
 
-		public void NextBytes(byte[] buffer)
-		{
-			var index = 0;
-			var ceil = (buffer.Length / 4) * 4;
-			while (index < ceil)
-			{
+        public void NextBytes(byte[] buffer)
+        {
+            var index = 0;
+            var ceil = (buffer.Length / 4) * 4;
+            while (index < ceil)
+            {
                 var value32 = this.NextRawValue();
 
-				buffer[index++] = (byte)value32;
-				buffer[index++] = (byte)(value32 >> 8);
-				buffer[index++] = (byte)(value32 >> 16);
-				buffer[index++] = (byte)(value32 >> 24);
-			}
+                buffer[index++] = (byte)value32;
+                buffer[index++] = (byte)(value32 >> 8);
+                buffer[index++] = (byte)(value32 >> 16);
+                buffer[index++] = (byte)(value32 >> 24);
+            }
 
-			if (index < buffer.Length)
-			{
+            if (index < buffer.Length)
+            {
                 var value32 = this.NextRawValue();
-				buffer[index++] = (byte)value32;
+                buffer[index++] = (byte)value32;
 
-				if (index < buffer.Length)
-				{
-					buffer[index++] = (byte)(value32 >> 8);
+                if (index < buffer.Length)
+                {
+                    buffer[index++] = (byte)(value32 >> 8);
 
-					if (index < buffer.Length)
-					{
-						buffer[index] = (byte)(value32 >> 16);
-					}
-				}
-			}
-		}
-	}
+                    if (index < buffer.Length)
+                    {
+                        buffer[index] = (byte)(value32 >> 16);
+                    }
+                }
+            }
+        }
+    }
 }

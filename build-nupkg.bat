@@ -23,4 +23,4 @@ rem HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT L
 rem OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 rem EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-.nuget\nuget pack CenterCLR.XorRandomGenerator.nuspec -Prop Version=1.0.4 -Prop Configuration=Release
+.nuget\nuget pack CenterCLR.XorRandomGenerator.nuspec -Prop Version=1.1.0 -Prop Configuration=Release

@@ -33,13 +33,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("CenterCLR.XorRandomGeneratorTests")]
-[assembly: AssemblyCopyright("Copyright (c) 2015 Kouji Matsui")]
+[assembly: AssemblyCopyright("Copyright (c) 2018 Kouji Matsui")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
 
 [assembly: Guid("b634c533-4341-439c-9c6a-315ebbd9f6d5")]
-
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]

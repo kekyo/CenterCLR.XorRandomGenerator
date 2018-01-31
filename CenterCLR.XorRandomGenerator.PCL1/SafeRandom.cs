@@ -29,107 +29,107 @@ using System;
 
 namespace CenterCLR.XorRandomGenerator
 {
-	/// <summary>
-	/// xor-shift based random generator.
-	/// </summary>
-	/// <remarks>
-	/// This class is thread-safed random number generator by xor-shift calculation.
-	/// http://en.wikipedia.org/wiki/Xorshift
-	/// If not require thread-safe, use Random class.
-	/// </remarks>
-	public sealed class SafeRandom : System.Random
-	{
-		private Internals.InternalXorRandom random_;
+    /// <summary>
+    /// xor-shift based random generator.
+    /// </summary>
+    /// <remarks>
+    /// This class is thread-safed random number generator by xor-shift calculation.
+    /// http://en.wikipedia.org/wiki/Xorshift
+    /// If not require thread-safe, use Random class.
+    /// </remarks>
+    public sealed class SafeRandom : System.Random
+    {
+        private Internals.InternalXorRandom random_;
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <remarks>
-		/// Seed value is internal tick count.
-		/// </remarks>
-		public SafeRandom()
-		{
-			random_ = new Internals.InternalXorRandom(Internals.Seeder.GetSeed());
-		}
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <remarks>
+        /// Seed value is internal tick count.
+        /// </remarks>
+        public SafeRandom()
+        {
+            random_ = new Internals.InternalXorRandom(Internals.Seeder.GetSeed());
+        }
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="seed">Random seed value.</param>
-		public SafeRandom(int seed)
-		{
-			random_ = new Internals.InternalXorRandom(Internals.Seeder.Normalize(seed));
-		}
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="seed">Random seed value.</param>
+        public SafeRandom(int seed)
+        {
+            random_ = new Internals.InternalXorRandom(Internals.Seeder.Normalize(seed));
+        }
 
-		/// <summary>
-		/// Get next random value.
-		/// </summary>
-		/// <returns>32bit random value.</returns>
-		public override int Next()
-		{
-		    lock (this)
-		    {
-		        return (int)(random_.Next() & 0x7fffffff);
-		    }
-		}
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <returns>32bit random value.</returns>
+        public override int Next()
+        {
+            lock (this)
+            {
+                return (int)(random_.Next() & 0x7fffffff);
+            }
+        }
 
-		/// <summary>
-		/// Get next random value.
-		/// </summary>
-		/// <param name="maxValue">Maximum value.</param>
-		/// <returns>32bit random value.</returns>
-		public override int Next(int maxValue)
-		{
-			lock (this)
-			{
-				return (int)random_.Next(maxValue);
-			}
-		}
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <param name="maxValue">Maximum value.</param>
+        /// <returns>32bit random value.</returns>
+        public override int Next(int maxValue)
+        {
+            lock (this)
+            {
+                return (int)random_.Next(maxValue);
+            }
+        }
 
-		/// <summary>
-		/// Get random values.
-		/// </summary>
-		/// <param name="buffer">Random value fill target.</param>
-		public override void NextBytes(byte[] buffer)
-		{
-			if (buffer == null)
-			{
-				throw new ArgumentNullException("buffer");
-			}
+        /// <summary>
+        /// Get random values.
+        /// </summary>
+        /// <param name="buffer">Random value fill target.</param>
+        public override void NextBytes(byte[] buffer)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer");
+            }
 
-			lock (this)
-			{
-				random_.NextBytes(buffer);
-			}
-		}
+            lock (this)
+            {
+                random_.NextBytes(buffer);
+            }
+        }
 
-		/// <summary>
-		/// Get random values.
-		/// </summary>
-		/// <param name="buffer">Random value fill target.</param>
-		public void NextValues(int[] buffer)
-		{
-			if (buffer == null)
-			{
-				throw new ArgumentNullException("buffer");
-			}
+        /// <summary>
+        /// Get random values.
+        /// </summary>
+        /// <param name="buffer">Random value fill target.</param>
+        public void NextValues(int[] buffer)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer");
+            }
 
-			lock (this)
-			{
-				random_.NextValues(buffer);
-			}
-		}
+            lock (this)
+            {
+                random_.NextValues(buffer);
+            }
+        }
 
-		/// <summary>
-		/// Get next random value.
-		/// </summary>
-		/// <returns>Floating point value.</returns>
-		protected override double Sample()
-		{
-			lock (this)
-			{
-				return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
-			}
-		}
-	}
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <returns>Floating point value.</returns>
+        protected override double Sample()
+        {
+            lock (this)
+            {
+                return ((double)((int)random_.Next())) * 4.6566128752457969E-10;
+            }
+        }
+    }
 }
