@@ -33,24 +33,24 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CenterCLR.XorRandomGenerator.Internals.Tests
 {
-	[TestClass()]
+    [TestClass()]
     public class InternalXorRandomTests
-	{
-	    private static void AssertValues(ushort[] values, int countMultiply)
-	    {
-	        Parallel.ForEach(
-	            values,
-	            count =>
-	            {
-	                Assert.IsTrue(
-	                    (count >= (29000 * countMultiply) &&
-	                     (count <= (31000 * countMultiply))));
-	            });
-	    }
+    {
+        private static void AssertValues(ushort[] values, int countMultiply)
+        {
+            Parallel.ForEach(
+                values,
+                count =>
+                {
+                    Assert.IsTrue(
+                        (count >= (29000 * countMultiply) &&
+                         (count <= (31000 * countMultiply))));
+                });
+        }
 
-		[TestMethod]
-		public void GenerateRandomValuesTest()
-		{
+        [TestMethod]
+        public void GenerateRandomValuesTest()
+        {
             Parallel.Invoke(
                 () =>
                 {
@@ -78,26 +78,26 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 
                     AssertValues(valueCounts, 1);
                 });
-		}
+        }
 
-		[TestMethod]
-		public void GenerateRandomValuesWithMaxValueTest()
-		{
-			var r = new InternalXorRandom(Seeder.GetSeed());
+        [TestMethod]
+        public void GenerateRandomValuesWithMaxValueTest()
+        {
+            var r = new InternalXorRandom(Seeder.GetSeed());
 
-			var valueCounts = new ushort[35000];
+            var valueCounts = new ushort[35000];
             for (ulong count = 0; count < (35000UL * 30000); count++)
-			{
-				var value32 = r.Next(34999);
-				valueCounts[value32]++;
-			}
+            {
+                var value32 = r.Next(34999);
+                valueCounts[value32]++;
+            }
 
-		    AssertValues(valueCounts, 1);
-		}
+            AssertValues(valueCounts, 1);
+        }
 
-		[TestMethod]
-		public void GenerateRandomValuesByNextValuesTest()
-		{
+        [TestMethod]
+        public void GenerateRandomValuesByNextValuesTest()
+        {
             Parallel.Invoke(
                 () =>
                 {
@@ -137,86 +137,86 @@ namespace CenterCLR.XorRandomGenerator.Internals.Tests
 
                     AssertValues(valueCounts, 1);
                 });
-		}
+        }
 
-		[TestMethod]
-		public unsafe void GenerateRandomValuesByNextBytesTest()
-		{
-			var r = new InternalXorRandom(Seeder.GetSeed());
+        [TestMethod]
+        public unsafe void GenerateRandomValuesByNextBytesTest()
+        {
+            var r = new InternalXorRandom(Seeder.GetSeed());
 
-			var buffer = new byte[2560 * 4];
-			var valueCounts = new ushort[65536];
-			for (ulong count = 0; count < (65536UL * 30000 / 2560); count++)
-			{
-				r.NextBytes(buffer);
+            var buffer = new byte[2560 * 4];
+            var valueCounts = new ushort[65536];
+            for (ulong count = 0; count < (65536UL * 30000 / 2560); count++)
+            {
+                r.NextBytes(buffer);
 
-				fixed (byte* pBuffer = buffer)
-				{
-					ushort* p = (ushort*)pBuffer;
-					for (var index = 0; index < (buffer.Length / 2); index++)
-					{
-						var value16 = p[index];
-						valueCounts[value16]++;
-					}
-				}
-			}
+                fixed (byte* pBuffer = buffer)
+                {
+                    ushort* p = (ushort*)pBuffer;
+                    for (var index = 0; index < (buffer.Length / 2); index++)
+                    {
+                        var value16 = p[index];
+                        valueCounts[value16]++;
+                    }
+                }
+            }
 
-		    AssertValues(valueCounts, 2);
-		}
+            AssertValues(valueCounts, 2);
+        }
 
-		[TestMethod]
-		public void GenerateRandomValuesTimeTest()
-		{
-			var r = new InternalXorRandom(Seeder.GetSeed());
+        [TestMethod]
+        public void GenerateRandomValuesTimeTest()
+        {
+            var r = new InternalXorRandom(Seeder.GetSeed());
 
-			var sw = new Stopwatch();
-			sw.Start();
+            var sw = new Stopwatch();
+            sw.Start();
 
-			for (ulong count = 0; count < (65536UL * 30000); count++)
-			{
-				var value32 = r.Next();
-			}
+            for (ulong count = 0; count < (65536UL * 30000); count++)
+            {
+                var value32 = r.Next();
+            }
 
-			sw.Stop();
-			Trace.WriteLine("GenerateRandomValuesTimeTest: " + sw.Elapsed);
-		}
+            sw.Stop();
+            Trace.WriteLine("GenerateRandomValuesTimeTest: " + sw.Elapsed);
+        }
 
-		[TestMethod]
-		public void GenerateRandomValuesByNextValuesTimeTest()
-		{
-			var r = new InternalXorRandom(Seeder.GetSeed());
+        [TestMethod]
+        public void GenerateRandomValuesByNextValuesTimeTest()
+        {
+            var r = new InternalXorRandom(Seeder.GetSeed());
 
-			var buffer = new int[2560];
+            var buffer = new int[2560];
 
-			var sw = new Stopwatch();
-			sw.Start();
+            var sw = new Stopwatch();
+            sw.Start();
 
-			for (ulong count = 0; count < (65536UL * 30000 / 2560); count++)
-			{
-				r.NextValues(buffer);
-			}
+            for (ulong count = 0; count < (65536UL * 30000 / 2560); count++)
+            {
+                r.NextValues(buffer);
+            }
 
-			sw.Stop();
-			Trace.WriteLine("GenerateRandomValuesByNextValuesTimeTest: " + sw.Elapsed);
-		}
+            sw.Stop();
+            Trace.WriteLine("GenerateRandomValuesByNextValuesTimeTest: " + sw.Elapsed);
+        }
 
-		[TestMethod]
-		public void GenerateRandomValuesByNextBytesTimeTest()
-		{
-			var r = new InternalXorRandom(Seeder.GetSeed());
+        [TestMethod]
+        public void GenerateRandomValuesByNextBytesTimeTest()
+        {
+            var r = new InternalXorRandom(Seeder.GetSeed());
 
-			var buffer = new byte[2560 * 4];
+            var buffer = new byte[2560 * 4];
 
-			var sw = new Stopwatch();
-			sw.Start();
+            var sw = new Stopwatch();
+            sw.Start();
 
-			for (ulong count = 0; count < (65536UL * 30000 / 2560); count++)
-			{
-				r.NextBytes(buffer);
-			}
+            for (ulong count = 0; count < (65536UL * 30000 / 2560); count++)
+            {
+                r.NextBytes(buffer);
+            }
 
-			sw.Stop();
-			Trace.WriteLine("GenerateRandomValuesByNextBytesTimeTest: " + sw.Elapsed);
-		}
-	}
+            sw.Stop();
+            Trace.WriteLine("GenerateRandomValuesByNextBytesTimeTest: " + sw.Elapsed);
+        }
+    }
 }

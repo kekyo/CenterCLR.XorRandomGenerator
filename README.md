@@ -22,13 +22,17 @@
 * Windows phone 7 or upper.
 * Windows store apps (Windows 8 or upper).
 * Xbox 360.
-* DNX (dnxcore50)
-* (PCL Profile 1/344)
+* .NET Standard 1.0 or upper.
+* (PCL Profile 1/259/344)
 
 ## Build requirements
-* Visual Studio 2012
+* Visual Studio 2017
 
 ## History
+* 1.1.0:
+  * Fixed "Inconsistent behavior between XorRandom and System.Random" #1
+  * Add support .NET 4.0 Client / .NET Standard 1.0 / PCL Profile 259
+  * Switch environment to Visual Studio 2017
 * 1.0.4:
   * Add .NET 2.0.
   * Add dnxcore moniker.

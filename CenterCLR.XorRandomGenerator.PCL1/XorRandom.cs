@@ -30,56 +30,56 @@ using System.Collections.Generic;
 
 namespace CenterCLR.XorRandomGenerator
 {
-	/// <summary>
-	/// xor-shift based random generator.
-	/// </summary>
-	/// <remarks>
-	/// This class is random number generator by xor-shift calculation.
-	/// http://en.wikipedia.org/wiki/Xorshift
-	/// If require thread-safe, use SafeRandom class.
-	/// </remarks>
-	public sealed class XorRandom : System.Random
-	{
-		private Internals.InternalXorRandom random_;
+    /// <summary>
+    /// xor-shift based random generator.
+    /// </summary>
+    /// <remarks>
+    /// This class is random number generator by xor-shift calculation.
+    /// http://en.wikipedia.org/wiki/Xorshift
+    /// If require thread-safe, use SafeRandom class.
+    /// </remarks>
+    public sealed class XorRandom : System.Random
+    {
+        private Internals.InternalXorRandom random_;
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <remarks>
-		/// Seed value is internal tick count.
-		/// </remarks>
-		public XorRandom()
-		{
-			random_ = new Internals.InternalXorRandom(Internals.Seeder.GetSeed());
-		}
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <remarks>
+        /// Seed value is internal tick count.
+        /// </remarks>
+        public XorRandom()
+        {
+            random_ = new Internals.InternalXorRandom(Internals.Seeder.GetSeed());
+        }
 
-		/// <summary>
-		/// Constructor.
-		/// </summary>
-		/// <param name="seed">Random seed value.</param>
-		public XorRandom(int seed)
-		{
-			random_ = new Internals.InternalXorRandom(Internals.Seeder.Normalize(seed));
-		}
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="seed">Random seed value.</param>
+        public XorRandom(int seed)
+        {
+            random_ = new Internals.InternalXorRandom(Internals.Seeder.Normalize(seed));
+        }
 
-		/// <summary>
-		/// Get next random value.
-		/// </summary>
-		/// <returns>32bit random value.</returns>
-		public override int Next()
-		{
-			return random_.Next();
-		}
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <returns>32bit random value.</returns>
+        public override int Next()
+        {
+            return random_.Next();
+        }
 
-		/// <summary>
-		/// Get next random value.
-		/// </summary>
-		/// <param name="maxValue">Maximum value.</param>
-		/// <returns>32bit random value.</returns>
-		public override int Next(int maxValue)
-		{
-			return random_.Next(maxValue);
-		}
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <param name="maxValue">Maximum value.</param>
+        /// <returns>32bit random value.</returns>
+        public override int Next(int maxValue)
+        {
+            return random_.Next(maxValue);
+        }
 
         /// <summary>
         /// Get next random value.
@@ -88,101 +88,101 @@ namespace CenterCLR.XorRandomGenerator
         /// <param name="maxValue">Maximum value.</param>
         /// <returns>32bit random value.</returns>
         public override int Next(int minValue, int maxValue)
-	    {
+        {
             return random_.Next(minValue, maxValue);
-	    }
+        }
 
-	    /// <summary>
-		/// Get random values.
-		/// </summary>
-		/// <param name="buffer">Random value fill target.</param>
-		public void NextValues(int[] buffer)
-		{
-			if (buffer == null)
-			{
-				throw new ArgumentNullException("buffer");
-			}
+        /// <summary>
+        /// Get random values.
+        /// </summary>
+        /// <param name="buffer">Random value fill target.</param>
+        public void NextValues(int[] buffer)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer");
+            }
 
-			random_.NextValues(buffer);
-		}
+            random_.NextValues(buffer);
+        }
 
-		/// <summary>
-		/// Get random values.
-		/// </summary>
-		/// <param name="buffer">Random value fill target.</param>
-		public override void NextBytes(byte[] buffer)
-		{
-			if (buffer == null)
-			{
-				throw new ArgumentNullException("buffer");
-			}
+        /// <summary>
+        /// Get random values.
+        /// </summary>
+        /// <param name="buffer">Random value fill target.</param>
+        public override void NextBytes(byte[] buffer)
+        {
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer");
+            }
 
-			random_.NextBytes(buffer);
-		}
+            random_.NextBytes(buffer);
+        }
 
-		/// <summary>
-		/// Get next random value.
-		/// </summary>
-		/// <returns>Floating point value.</returns>
-		protected override double Sample()
-		{
+        /// <summary>
+        /// Get next random value.
+        /// </summary>
+        /// <returns>Floating point value.</returns>
+        protected override double Sample()
+        {
             return random_.Sample();
-		}
+        }
 
-	    internal double InternalSample()
-	    {
-	        return random_.Sample();
-	    }
+        internal double InternalSample()
+        {
+            return random_.Sample();
+        }
 
-		/// <summary>
-		/// Generate random sequence.
-		/// </summary>
-		/// <param name="count">Number of random values.</param>
-		/// <returns>Random sequence.</returns>
-		public static IEnumerable<int> Sequence(int count)
-		{
-			var r = new XorRandom();
+        /// <summary>
+        /// Generate random sequence.
+        /// </summary>
+        /// <param name="count">Number of random values.</param>
+        /// <returns>Random sequence.</returns>
+        public static IEnumerable<int> Sequence(int count)
+        {
+            var r = new XorRandom();
 
-			for (var index = 0; index < count; index++)
-			{
-				yield return r.Next();
-			}
-		}
+            for (var index = 0; index < count; index++)
+            {
+                yield return r.Next();
+            }
+        }
 
-		/// <summary>
-		/// Generate random sequence.
-		/// </summary>
-		/// <param name="count">Number of random arrays.</param>
-		/// <param name="bytes">Bytes on array.</param>
-		/// <returns>Random sequence.</returns>
-		public static IEnumerable<byte[]> BytesSequence(int count, int bytes)
-		{
-			var r = new XorRandom();
+        /// <summary>
+        /// Generate random sequence.
+        /// </summary>
+        /// <param name="count">Number of random arrays.</param>
+        /// <param name="bytes">Bytes on array.</param>
+        /// <returns>Random sequence.</returns>
+        public static IEnumerable<byte[]> BytesSequence(int count, int bytes)
+        {
+            var r = new XorRandom();
 
-			for (var index = 0; index < count; index++)
-			{
-				var buffer = new byte[bytes];
-				r.NextBytes(buffer);
-				yield return buffer;
-			}
-		}
+            for (var index = 0; index < count; index++)
+            {
+                var buffer = new byte[bytes];
+                r.NextBytes(buffer);
+                yield return buffer;
+            }
+        }
 
-		/// <summary>
-		/// Generate random sequence.
-		/// </summary>
-		/// <param name="count">Number of random arrays.</param>
-		/// <param name="values">Values on array.</param>
-		/// <returns>Random sequence.</returns>
-		public static IEnumerable<int[]> ValuesSequence(int count, int values)
-		{
-			var r = new XorRandom();
+        /// <summary>
+        /// Generate random sequence.
+        /// </summary>
+        /// <param name="count">Number of random arrays.</param>
+        /// <param name="values">Values on array.</param>
+        /// <returns>Random sequence.</returns>
+        public static IEnumerable<int[]> ValuesSequence(int count, int values)
+        {
+            var r = new XorRandom();
 
-			for (var index = 0; index < count; index++)
-			{
-				var buffer = new int[values];
-				r.NextValues(buffer);
-				yield return buffer;
-			}
-		}
-	}
+            for (var index = 0; index < count; index++)
+            {
+                var buffer = new int[values];
+                r.NextValues(buffer);
+                yield return buffer;
+            }
+        }
+    }
 }
